@@ -194,8 +194,14 @@ class AttachmentController extends Controller
             return redirect($attachment->path);
         }
 
+        $mime = mime_content_type(storage_path($attachment->path));
+
+        if(!$mime){
+            $mime = 'application/octet-stream';
+        }
+
         $attachmentContents = $this->attachmentService->getAttachmentFromStorage($attachment);
-        return $this->downloadResponse($attachmentContents, $attachment->getFileName());
+        return $this->downloadResponseWithMime($attachmentContents, $attachment->getFileName(), $mime);
     }
 
     /**

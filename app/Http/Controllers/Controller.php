@@ -164,6 +164,28 @@ abstract class Controller extends BaseController
     }
 
     /**
+     * Create a response that has the correct mime type. If the mime type is 'application/octet-stream' or not set
+     * then the Content-Disposition will be set to 'attachment', otherwise it will be 'inline'
+     * @param string $content
+     * @param string $fileName
+     * @param string $mime
+     * @return \Illuminate\Http\Response
+     */
+    protected function downloadResponseWithMime(string $content, string $fileName, string $mime = 'application/octet-stream')
+    {
+        $contentDisposition = 'inline';
+
+        if(!$mime || $mime === 'application/octet-stream') {
+            $contentDisposition = 'attachment';
+        }
+
+        return response()->make($content, 200, [
+            'Content-Type'        => $mime,
+            'Content-Disposition' => $contentDisposition . '; filename="' . $fileName . '"'
+        ]);
+    }
+
+    /**
      * Show a positive, successful notification to the user on next view load.
      * @param string $message
      */
