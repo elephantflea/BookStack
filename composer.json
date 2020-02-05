@@ -30,7 +30,7 @@
         "socialiteproviders/okta": "^1.0",
         "socialiteproviders/slack": "^3.0",
         "socialiteproviders/twitch": "^5.0",
-        "ext-fileinfo": "*"
+        "ext-fileinfo": "*",
         "facade/ignition": "^1.4",
         "nunomaduro/collision": "^3.0"
     },
